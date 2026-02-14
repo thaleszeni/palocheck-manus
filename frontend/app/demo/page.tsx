@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../config";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -35,7 +36,7 @@ export default function DemoPage() {
         setError('');
 
         try {
-            const res = await fetch('http://localhost:8000/api/leads', {
+            const res = await fetch(`${API_BASE_URL}/api/leads`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

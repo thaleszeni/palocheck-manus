@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../config";
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -39,7 +40,7 @@ function ResetPasswordForm() {
         setError('');
 
         try {
-            const res = await fetch('http://localhost:8000/api/auth/password/reset-confirm', {
+            const res = await fetch(`${API_BASE_URL}/api/auth/password/reset-confirm`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ token, new_password: password }),

@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../config";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
@@ -29,10 +30,10 @@ export default function SettingsPage() {
 
     const fetchData = async () => {
         try {
-            const listRes = await fetch('http://localhost:8000/settings/rulesets');
+            const listRes = await fetch(`${API_BASE_URL}/settings/rulesets`);
             if (listRes.ok) setRulesets(await listRes.json());
 
-            const activeRes = await fetch('http://localhost:8000/settings/ruleset/active');
+            const activeRes = await fetch(`${API_BASE_URL}/settings/ruleset/active`);
             if (activeRes.ok) setActiveRuleset(await activeRes.json());
         } catch (err) {
             console.error("Erro ao carregar configurações:", err);
@@ -48,7 +49,7 @@ export default function SettingsPage() {
     const handleCreateRuleset = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const res = await fetch('http://localhost:8000/settings/rulesets', {
+            const res = await fetch(`${API_BASE_URL}/settings/rulesets`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newRuleset),

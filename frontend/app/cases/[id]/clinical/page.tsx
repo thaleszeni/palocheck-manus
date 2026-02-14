@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../../../config";
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -73,7 +74,7 @@ export default function ClinicalPage() {
                 const token = localStorage.getItem('pc_token');
                 const headers = { 'Authorization': `Bearer ${token}` };
 
-                const metRes = await fetch(`http://localhost:8000/cases/${caseId}/metrics`, { headers });
+                const metRes = await fetch(`${API_BASE_URL}/cases/${caseId}/metrics`, { headers });
                 if (metRes.ok) {
                     const data = await metRes.json();
                     setAutoMetrics(data);
@@ -129,7 +130,7 @@ export default function ClinicalPage() {
         setSaving(true);
         try {
             const token = localStorage.getItem('pc_token');
-            const res = await fetch(`http://localhost:8000/cases/${caseId}/clinical`, {
+            const res = await fetch(`${API_BASE_URL}/cases/${caseId}/clinical`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({

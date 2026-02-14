@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../../../config";
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -39,14 +40,14 @@ export default function ReviewPage() {
             const authHeader = { 'Authorization': `Bearer ${token}` };
 
             // 1. Fetch File Info
-            const fileRes = await fetch(`http://localhost:8000/cases/${caseId}/file`, { headers: authHeader });
+            const fileRes = await fetch(`${API_BASE_URL}/cases/${caseId}/file`, { headers: authHeader });
             if (fileRes.ok) {
                 const fileData = await fileRes.json();
                 setImageUrl(fileData.url);
             }
 
             // 2. Fetch Detections
-            const detRes = await fetch(`http://localhost:8000/cases/${caseId}/detections`, { headers: authHeader });
+            const detRes = await fetch(`${API_BASE_URL}/cases/${caseId}/detections`, { headers: authHeader });
             if (detRes.ok) {
                 const detData = await detRes.json();
                 setPalos(detData.palo_objects.palos || []);
@@ -54,7 +55,7 @@ export default function ReviewPage() {
             }
 
             // 3. Fetch Metrics
-            const metRes = await fetch(`http://localhost:8000/cases/${caseId}/metrics`, { headers: authHeader });
+            const metRes = await fetch(`${API_BASE_URL}/cases/${caseId}/metrics`, { headers: authHeader });
             if (metRes.ok) {
                 const metData = await metRes.json();
                 setMetrics(metData);
@@ -85,7 +86,7 @@ export default function ReviewPage() {
         const lastAction = actionStack[actionStack.length - 1];
         try {
             const token = localStorage.getItem('pc_token');
-            const res = await fetch(`http://localhost:8000/cases/${caseId}/detections/items?type=${lastAction.itemType}`, {
+            const res = await fetch(`${API_BASE_URL}/cases/${caseId}/detections/items?type=${lastAction.itemType}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -110,7 +111,7 @@ export default function ReviewPage() {
 
         try {
             const token = localStorage.getItem('pc_token');
-            const res = await fetch(`http://localhost:8000/cases/${caseId}/detections/items/${itemId}?type=${type}`, {
+            const res = await fetch(`${API_BASE_URL}/cases/${caseId}/detections/items/${itemId}?type=${type}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -128,7 +129,7 @@ export default function ReviewPage() {
     const handleSaveOverrides = async () => {
         try {
             const token = localStorage.getItem('pc_token');
-            const res = await fetch(`http://localhost:8000/cases/${caseId}/metrics/overrides`, {
+            const res = await fetch(`${API_BASE_URL}/cases/${caseId}/metrics/overrides`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -189,7 +190,7 @@ export default function ReviewPage() {
                         onClick={async () => {
                             try {
                                 const token = localStorage.getItem('pc_token');
-                                const res = await fetch(`http://localhost:8000/cases/${caseId}/dataset-approve`, {
+                                const res = await fetch(`${API_BASE_URL}/cases/${caseId}/dataset-approve`, {
                                     method: 'POST',
                                     headers: { 'Authorization': `Bearer ${token}` }
                                 });
@@ -291,7 +292,7 @@ export default function ReviewPage() {
                                     setLoading(true);
                                     try {
                                         const token = localStorage.getItem('pc_token');
-                                        await fetch(`http://localhost:8000/cases/${caseId}/reprocess`, {
+                                        await fetch(`${API_BASE_URL}/cases/${caseId}/reprocess`, {
                                             method: 'POST',
                                             headers: { 'Authorization': `Bearer ${token}` }
                                         });

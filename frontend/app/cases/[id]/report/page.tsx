@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../../../config";
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -16,7 +17,7 @@ export default function ReportPage() {
     useEffect(() => {
         const fetchDraft = async () => {
             try {
-                const res = await fetch(`http://localhost:8000/cases/${caseId}/report/draft`);
+                const res = await fetch(`${API_BASE_URL}/cases/${caseId}/report/draft`);
                 if (res.ok) {
                     const data = await res.json();
                     setReportText(data.draft_text);
@@ -36,7 +37,7 @@ export default function ReportPage() {
             const token = localStorage.getItem('pc_token');
             const authHeader = { 'Authorization': `Bearer ${token}` };
 
-            const res = await fetch(`http://localhost:8000/cases/${caseId}/report/finalize`, {
+            const res = await fetch(`${API_BASE_URL}/cases/${caseId}/report/finalize`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

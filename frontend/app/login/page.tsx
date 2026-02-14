@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../config";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -23,7 +24,7 @@ export default function LoginPage() {
             payload.append('username', email);
             payload.append('password', password);
 
-            const res = await fetch('http://localhost:8000/token', {
+            const res = await fetch(`${API_BASE_URL}/token`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

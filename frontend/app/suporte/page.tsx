@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect, Suspense } from 'react';
+import { API_BASE_URL } from "../config";
+import React, { useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { LandingHeader } from '../components/LandingHeader';
 import { LandingFooter } from '../components/LandingFooter';
@@ -24,7 +25,7 @@ function SuporteContent() {
         e.preventDefault();
         setLoading(true);
         try {
-            const res = await fetch('http://localhost:8000/api/tickets', {
+            const res = await fetch(`${API_BASE_URL}/api/tickets`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),

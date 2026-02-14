@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../config";
 
 /**
  * PaloCheck Central Tracking Utility
@@ -14,7 +15,7 @@ export async function trackEvent(cta_id: string, page: string = "home") {
     };
 
     try {
-        const res = await fetch('http://localhost:8000/api/events', {
+        const res = await fetch(`${API_BASE_URL}/api/events`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(event_data),

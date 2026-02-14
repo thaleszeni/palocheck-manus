@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { API_BASE_URL } from "../config";
+import { useAuth } from "@/components/auth-provider";
 import { useRouter } from 'next/navigation';
 
 export default function CasesPage() {
@@ -16,7 +18,7 @@ export default function CasesPage() {
     const fetchCases = async () => {
         try {
             const token = localStorage.getItem('pc_token');
-            const response = await fetch('http://localhost:8000/cases', {
+            const response = await fetch(`${API_BASE_URL}/cases`, {
                 headers: token ? { 'Authorization': `Bearer ${token}` } : {}
             });
             if (response.ok) {
@@ -33,7 +35,7 @@ export default function CasesPage() {
     const fetchAiStats = async () => {
         try {
             const token = localStorage.getItem('pc_token');
-            const response = await fetch('http://localhost:8000/settings/dataset-stats', {
+            const response = await fetch(`${API_BASE_URL}/settings/dataset-stats`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) setAiStats(await response.json());
@@ -86,7 +88,7 @@ export default function CasesPage() {
 
             // 1. Create Case Record
             console.log("[SAVE-CASE] Passo 1: Criando registro do caso...");
-            const caseResponse = await fetch('http://localhost:8000/cases', {
+            const caseResponse = await fetch(`${API_BASE_URL}/cases`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -110,7 +112,7 @@ export default function CasesPage() {
             const formData = new FormData();
             formData.append('file', selectedFile);
 
-            const uploadRes = await fetch(`http://localhost:8000/cases/${createdCase.id}/upload`, {
+            const uploadRes = await fetch(`${API_BASE_URL}/cases/${createdCase.id}/upload`, {
                 method: 'POST',
                 headers: authHeader,
                 body: formData,
@@ -128,7 +130,7 @@ export default function CasesPage() {
 
             // 3. Trigger Analysis
             console.log("[SAVE-CASE] Passo 3: Iniciando análise técnica...");
-            const analyzeRes = await fetch(`http://localhost:8000/cases/${createdCase.id}/analyze`, {
+            const analyzeRes = await fetch(`${API_BASE_URL}/cases/${createdCase.id}/analyze`, {
                 method: 'POST',
                 headers: authHeader
             });

@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../config";
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Mail, ArrowRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
@@ -16,7 +17,7 @@ export default function RecoverPasswordPage() {
         setError('');
 
         try {
-            const res = await fetch('http://localhost:8000/api/auth/password/reset-request', {
+            const res = await fetch(`${API_BASE_URL}/api/auth/password/reset-request`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email }),

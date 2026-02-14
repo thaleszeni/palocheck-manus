@@ -1,4 +1,5 @@
 "use client";
+import { API_BASE_URL } from "../../config";
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -17,7 +18,7 @@ export default function CaseDetailPage() {
     const fetchJobStatus = async () => {
         try {
             const token = localStorage.getItem('pc_token');
-            const res = await fetch(`http://localhost:8000/cases/${caseId}/jobs/latest`, {
+            const res = await fetch(`${API_BASE_URL}/cases/${caseId}/jobs/latest`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
@@ -88,8 +89,8 @@ export default function CaseDetailPage() {
                             return (
                                 <div key={step.id} className={`flex items-start gap-5 transition-opacity duration-500 ${isPending ? 'opacity-30' : 'opacity-100'}`}>
                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg transition-all duration-500 ${isCompleted ? 'bg-green-500 text-white' :
-                                            isActive ? 'bg-blue-600 text-white animate-pulse' :
-                                                'bg-slate-100 text-slate-400'
+                                        isActive ? 'bg-blue-600 text-white animate-pulse' :
+                                            'bg-slate-100 text-slate-400'
                                         }`}>
                                         {isActive ? <Loader2 className="animate-spin" size={20} /> : step.icon}
                                     </div>
