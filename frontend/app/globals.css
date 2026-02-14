@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #0B1F3B;
+  --color-secondary: #1AA6B7;
+  --color-accent: #FF5A5F;
+  --color-bg-light: #F7FAFC;
+  --color-surface-light: #FFFFFF;
+  --color-text-p-light: #0F172A;
+  --color-text-s-light: #475569;
+  --color-border-light: #E2E8F0;
+
+  --color-bg-dark: #071426;
+  --color-surface-dark: #0B1F3B;
+  --color-text-p-dark: #E5E7EB;
+  --color-text-s-dark: #94A3B8;
+  --color-border-dark: #1F2A44;
+
+  --radius-2xl: 1rem;
+}
+
+:root {
+  --background: var(--color-bg-light);
+  --foreground: var(--color-text-p-light);
+  --surface: var(--color-surface-light);
+  --border: var(--color-border-light);
+  --text-primary: var(--color-text-p-light);
+  --text-secondary: var(--color-text-s-light);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--color-bg-dark);
+    --foreground: var(--color-text-p-dark);
+    --surface: var(--color-surface-dark);
+    --border: var(--color-border-dark);
+    --text-primary: var(--color-text-p-dark);
+    --text-secondary: var(--color-text-s-dark);
+  }
+}
+
+body {
+  color: var(--text-primary);
+  background: var(--background);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer utilities {
+  .glass-header {
+    @apply sticky top-0 z-50 backdrop-blur-lg border-b border-[var(--border)] bg-[var(--background)]/80;
+  }
+
+  .card-premium {
+    @apply bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius-2xl)] shadow-sm hover:shadow-xl transition-all duration-300;
+  }
+
+  .btn-accent {
+    @apply bg-[#FF5A5F] text-white hover:brightness-110 px-8 py-4 rounded-2xl font-black transition-all active:scale-95 shadow-lg shadow-[#FF5A5F]/20;
+  }
+
+  .btn-secondary {
+    @apply border border-[var(--border)] text-[var(--text-primary)] hover:bg-[var(--text-primary)]/5 px-8 py-4 rounded-2xl font-bold transition-all;
+  }
+}

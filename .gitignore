@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+.venv/
+env/
+instance/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Databases
+*.db
+*.sqlite3
+
+# Logs
+*.log
+uvicorn.log
+
+# Node
+node_modules/
+.next/
+out/
+build/
+dist/
+.vercel
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Storage
+storage/uploads/*
+!storage/uploads/.gitkeep
+backend/storage/uploads/*
+!backend/storage/uploads/.gitkeep
+
+# Debug images
+backend/debug_*.jpg
+backend/debug_*.png
+backend/*.jpg
+backend/*.png
+frontend/public/uploads/*

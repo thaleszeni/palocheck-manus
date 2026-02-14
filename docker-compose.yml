@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=palo_user
+      - POSTGRES_PASSWORD=palo_pass
+      - POSTGRES_DB=palocheck
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - palo-network
+
+  backend:
+    build: ./backend
+    environment:
+      - DATABASE_URL=postgresql://palo_user:palo_pass@db:5432/palocheck
+      - SECRET_KEY=palo-check-super-secret-key-123
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - palo-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    networks:
+      - palo-network
+
+networks:
+  palo-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
