@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { API_BASE_URL } from "../config";
-import { useAuth } from "@/components/auth-provider";
 import { useRouter } from 'next/navigation';
 
 export default function CasesPage() {
