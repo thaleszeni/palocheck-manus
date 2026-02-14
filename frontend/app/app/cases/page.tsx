@@ -12,7 +12,8 @@ import {
     FileText,
     AlertCircle,
     CheckCircle2,
-    Clock
+    Clock,
+    FolderOpen
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
